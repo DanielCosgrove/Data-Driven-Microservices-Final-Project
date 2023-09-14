@@ -1,0 +1,6 @@
+flask
+grpcio 
+googleapis-common-protos 
+redis
+pandas==0.25.1
+numpy==1.17.1

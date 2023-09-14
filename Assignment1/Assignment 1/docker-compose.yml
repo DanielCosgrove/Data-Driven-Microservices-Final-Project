@@ -1,0 +1,20 @@
+version: '3'
+services:
+  web: 
+    build: 
+      context: . 
+      dockerfile: TweetAnalytics.Dockerfile  
+    ports:
+      - "6000:6000"
+    depends_on:
+            - redis
+  redis:
+    image: redis
+  weblogs: 
+    build: 
+      context: . 
+      dockerfile: WebLog.Dockerfile 
+    ports: 
+      - "8080:6000" 
+    depends_on: 
+      - "redis" 
