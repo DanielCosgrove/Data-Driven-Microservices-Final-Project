@@ -1,0 +1,26 @@
+version: '3' 
+
+services: 
+  reader: 
+    image: danielc97/datadrivenreader:3
+    ports:  
+      - "50051:50051" 
+  analysis: 
+    image: danielc97/datadrivenanalysis:3
+    depends_on:
+      - "reader" 
+    command: ["./wait-for-it.sh", "reader:50051", "--", "python", "analysis.py"]
+  redis: 
+    image: redis:alpine 
+    ports:
+      - "6379:6379"
+  prometheus: 
+    image: prom/prometheus 
+    ports:
+      - "9090:9090"
+  display: 
+    image: danielc97/datadrivendisplay:3
+    ports: 
+      - "8080:5000" 
+    depends_on: 
+      - "redis" 
